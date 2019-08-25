@@ -1,0 +1,30 @@
+{
+  "name": "sreps-frontend",
+  "description": "SRePs frontend.",
+  "repository": "",
+  "env": {
+    "NPM_CONFIG_PRODUCTION": {
+      "description": "Install the devDependencies of the project.",
+      "value": "false"
+    },
+    "HOST": {
+      "description": "Host to listen to.",
+      "generator": "0.0.0.0"
+    },
+    "NODE_ENV": {
+      "description": "Deployment mode.",
+      "value": "production"
+    }
+  },
+  "environments": {
+    "test": {
+      "env": {
+        "NODE_ENV": {
+          "description": "Deployment mode.",
+          "value": "development"
+        }
+      },
+      "scripts": {}
+    }
+  }
+}
