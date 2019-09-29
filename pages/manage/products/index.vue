@@ -53,6 +53,7 @@
         :loading="isLoading"
         :per-page="perPageRows"
         :total="totalRows"
+        @select="onSelect"
         @sort="onSort"
         @page-change="onPageChange"
         aria-current-label="Current page"
@@ -165,6 +166,10 @@ export default {
       this.page = page;
 
       this.fetchProducts();
+    },
+    onSelect(item) {
+      // TODO: Implement better method.
+      this.$router.push({ path: `products/${item.id}/update/` });
     },
     onSort(field, order) {
       this.sortField = field;
