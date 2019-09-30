@@ -53,6 +53,7 @@
         :loading="isLoading"
         :per-page="perPageRows"
         :total="totalRows"
+        @select="onSelect"
         @sort="onSort"
         @page-change="onPageChange"
         aria-current-label="Current page"
@@ -66,29 +67,13 @@
       >
         <template slot-scope="props">
           <b-table-column field="id" label="ID" numeric sortable>{{ props.row.id }}</b-table-column>
-          <!-- <b-table-column field="name" label="Name" sortable>{{ props.row.firstName }}</b-table-column> -->
-          <b-table-column
-            field="name"
-            label="First name"
-            sortable
-          >{{ props.row.name }}</b-table-column>
-          <b-table-column
-            field="phone"
-            label="Phone"
-            numeric
-          >{{ props.row.phone }}</b-table-column>
-          <b-table-column
-            field="email"
-            label="Email"
-          >${{ props.row.email }}</b-table-column>
+          <b-table-column field="name" label="First name" sortable>{{ props.row.name }}</b-table-column>
+          <b-table-column field="phone" label="Phone" numeric>{{ props.row.phone }}</b-table-column>
+          <b-table-column field="email" label="Email">{{ props.row.email }}</b-table-column>
           <b-table-column field="datetime_created" label="Date added" centered sortable>
             <span class="tag">{{ new Date(props.row.datetime_created).toLocaleDateString() }}</span>
           </b-table-column>
-          <b-table-column
-            field="address"
-            label="Address"
-          >{{ props.row.address }}</b-table-column>
-          
+          <b-table-column field="address" label="Address">{{ props.row.address }}</b-table-column>
         </template>
       </b-table>
     </div>
@@ -142,11 +127,14 @@ export default {
 
       this.isLoading = false;
     },
-   
     onPageChange(page) {
       this.page = page;
 
       this.fetchCustomers();
+    },
+    onSelect(item) {
+      // TODO: Implement better method.
+      this.$router.push({ path: `customers/${item.id}/update/` });
     },
     onSort(field, order) {
       this.sortField = field;
