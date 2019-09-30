@@ -2,11 +2,6 @@
 
 > SRePs frontend.
 
-# Requirements:
-
- - VS Code
- - Node JS
-
 ## Build Setup
 
 ``` bash
