@@ -5,7 +5,7 @@
       <!-- <h2
         v-if="formData.name"
         class="subtitle"
-      >{{ formData.name }} | ${{  }}</h2> -->
+      >{{ formData.name }} | ${{  }}</h2>-->
       <form>
         <b-field
           :message="formErrorData.name"
@@ -15,31 +15,29 @@
           <b-input v-model.trim="formData.name" maxlength="28" placeholder="John Smith"></b-input>
         </b-field>
 
-
         <b-field
-            :message="formErrorData.phone"
-            :type="{ 'is-danger': formErrorData.phone }"
-            label="Phone number"
+          :message="formErrorData.phone"
+          :type="{ 'is-danger': formErrorData.phone }"
+          label="Phone number"
         >
-            <b-numberinput v-model.number="formData.phone" min="10" placeholder="0400111222"></b-numberinput>
+          <b-input v-model.trim="formData.phone" placeholder="0400111222"></b-input>
         </b-field>
 
         <b-field
-            :message="formErrorData.email"
-            :type="{ 'is-danger': formErrorData.email }"
-            label="Email"
-          >
-            <b-input v-model.number="formData.email" placeholder="john@address.com"></b-input>
+          :message="formErrorData.email"
+          :type="{ 'is-danger': formErrorData.email }"
+          label="Email"
+        >
+          <b-input v-model.trim="formData.email" type="email" placeholder="john@address.com"></b-input>
         </b-field>
         <b-field
-            :message="formErrorData.address"
-            :type="{ 'is-danger': formErrorData.address }"
-            label="Address"
-          >
-            <b-input v-model.number="formData.address" placeholder="0.00"></b-input>
+          :message="formErrorData.address"
+          :type="{ 'is-danger': formErrorData.address }"
+          label="Address"
+        >
+          <b-input v-model.trim="formData.address" placeholder></b-input>
         </b-field>
-     
-       
+
         <b-button @click.stop.prevent="onFormSubmit" type="is-primary">Update</b-button>
         <b-button @click="onFormCancel">Cancel</b-button>
       </form>
@@ -53,12 +51,11 @@ import { async } from "q";
 export default {
   data() {
     return {
-     
       formErrorData: {
         name: null,
         phone: null,
         email: null,
-        address: null,
+        address: null
       }
     };
   },
@@ -67,7 +64,6 @@ export default {
 
     await $axios.$get(`/v1/customer/${params.id}/`).then(res => {
       formData.name = res.name;
-      (formData.name = res.name || {}),
       formData.phone = res.phone;
       formData.email = res.email;
       formData.address = res.address;
@@ -76,13 +72,12 @@ export default {
     return { formData };
   },
   methods: {
-
     async onFormSubmit() {
       var payload = {
         name: this.formData.name,
         phone: this.formData.phone,
         email: this.formData.email,
-        address: this.formData.address,
+        address: this.formData.address
       };
 
       // Set form errors to null.
@@ -109,12 +104,9 @@ export default {
           if (err.response.data) {
             // Has form errors.
             this.formErrorData.name = err.response.data.name || null;
-            this.formErrorData.phone =
-              err.response.data.phone || null;
+            this.formErrorData.phone = err.response.data.phone || null;
             this.formErrorData.email = err.response.data.email || null;
-            this.formErrorData.address =
-              err.response.data.address || null;
-            
+            this.formErrorData.address = err.response.data.address || null;
           } else {
             // Show error toast.
             this.$buefy.toast.open({
@@ -129,9 +121,7 @@ export default {
     onFormCancel() {
       // Go back.
       this.$router.back();
-    },
-    
-    
+    }
   }
 };
 </script>
