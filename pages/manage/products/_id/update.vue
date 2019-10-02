@@ -29,7 +29,7 @@
             placeholder="e.g. Pain medication"
           >
             <template slot="header">
-              <nuxt-link to="/manage/product-categories/add">Add new...</nuxt-link>
+              <nuxt-link to="/manage/categories/add" target="_blank">Add new...</nuxt-link>
             </template>
             <template slot-scope="props">{{ props.option.name }}</template>
           </b-autocomplete>
