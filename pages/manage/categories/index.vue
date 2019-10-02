@@ -68,7 +68,6 @@
         <template slot-scope="props">
           <b-table-column field="id" label="ID" numeric sortable>{{ props.row.id }}</b-table-column>
           <b-table-column field="name" label="Name" sortable>{{ props.row.name }}</b-table-column>
-          <b-table-column field="description" label="Description" sortable>{{ props.row.description }}</b-table-column>
           <b-table-column field="datetime_created" label="Date added" centered sortable>
             <span class="tag">{{ new Date(props.row.datetime_created).toLocaleDateString() }}</span>
           </b-table-column>
@@ -125,7 +124,7 @@ export default {
 
       this.isLoading = false;
     },
-  
+
     onPageChange(page) {
       this.page = page;
 
