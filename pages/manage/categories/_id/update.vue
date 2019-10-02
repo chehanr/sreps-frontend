@@ -10,7 +10,7 @@
         >
           <b-input v-model.trim="formData.name" maxlength="128"></b-input>
         </b-field>
-       
+
         <b-field
           :message="formErrorData.description"
           :type="{ 'is-danger': formErrorData.description }"
@@ -35,10 +35,6 @@ import { async } from "q";
 export default {
   data() {
     return {
-      // isFetchingProductCategories: false,
-
-      // productCategoryData: [],
-
       formErrorData: {
         name: null,
         description: null,
@@ -56,17 +52,11 @@ export default {
     return { formData };
   },
   methods: {
-   
+
     async onFormSubmit() {
       var payload = {
         name: this.formData.name,
-        category: this.formData.category.id || null,
         description: this.formData.description,
-        stock_quantity: this.formData.stockQuantity,
-        base_price: this.formData.basePrice,
-        discount_amount: this.formData.discountAmount,
-        is_available: this.formData.availability == "Available" ? true : false,
-        datetime_expire: this.formData.dateExpiration || null
       };
 
       // Set form errors to null.
