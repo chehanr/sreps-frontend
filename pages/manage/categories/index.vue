@@ -132,7 +132,7 @@ export default {
     },
     onSelect(item) {
       // TODO: Implement better method.
-      this.$router.push({ path: `product-category/${item.id}/update/` });
+      this.$router.push({ path: `categories/${item.id}/update/` });
     },
     onSort(field, order) {
       this.sortField = field;
