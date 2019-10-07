@@ -16,6 +16,7 @@
               <b-icon :icon="props.expanded ? 'menu-down' : 'menu-up'" class="is-pulled-right"></b-icon>
             </template>
             <b-menu-item icon="pill" label="Products" tag="nuxt-link" to="/manage/products"></b-menu-item>
+             <b-menu-item icon="pill" label="Product Category" tag="nuxt-link" to="/manage/categories"></b-menu-item>
             <b-menu-item icon="account-multiple" label="Customers" tag="nuxt-link" to="/manage/customers"></b-menu-item>
             <b-menu-item icon="cash-multiple" label="Invoices" disabled></b-menu-item>
           </b-menu-item>

@@ -16,7 +16,7 @@
     "@nuxtjs/auth": "^4.8.1",
     "@nuxtjs/axios": "^5.5.4",
     "@nuxtjs/dotenv": "^1.4.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.9.2",
     "nuxt-buefy": "^0.3.2"
   },
   "devDependencies": {
