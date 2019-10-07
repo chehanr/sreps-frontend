@@ -1,16 +1,10 @@
 <template>
     <section class="columns is-fullheight">
-    
         <aside class="column is-3 is-fullheight is-narrow-mobile section">
-    
             <b-menu>
-    
                 <b-menu-list label="Menu">
-    
                     <b-menu-item icon="information-outline" label="Dashboard" tag="nuxt-link" to="/manage/" exact></b-menu-item>
-    
                     <b-menu-item icon="settings" expanded>
-    
                         <template slot="label" slot-scope="props">
     
                   Administrator

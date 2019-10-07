@@ -1,26 +1,15 @@
 <template>
     <section class="section">
-    
         <div class="container">
-    
             <h1 class="title">Add Product</h1>
-    
             <h2 v-if="formData.name" class="subtitle">{{ formData.name }} | ${{ calcPrice(this.formData.basePrice, this.formData.discountAmount) }}</h2>
-    
             <form>
-    
                 <b-field :message="formErrorData.name" :type="{ 'is-danger': formErrorData.name }" label="Name">
-    
                     <b-input v-model.trim="formData.name" maxlength="128"></b-input>
-    
                 </b-field>
-    
                 <b-field :message="formErrorData.category" :type="{ 'is-danger': formErrorData.category }" label="Category">
-    
                     <b-autocomplete :data="productCategoryData" :loading="isFetchingProductCategories" @select="option => formData.category = option" @typing="fetchProductCategories" field="name" placeholder="e.g. Pain medication">
-    
                         <template slot="header">
-    
                   <nuxt-link to="/manage/categories/add" target="_blank">Add new...</nuxt-link>
 </template>
 <template slot-scope="props">
