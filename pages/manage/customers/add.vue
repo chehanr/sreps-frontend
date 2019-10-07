@@ -2,10 +2,15 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Add Customer</h1>
+
       <!-- <h2
-        v-if="formData.name"
-        class="subtitle"
+    
+            v-if="formData.name"
+    
+            class="subtitle"
+    
       >{{ formData.name }}</h2>-->
+
       <form>
         <b-field
           :message="formErrorData.name"
@@ -30,6 +35,7 @@
         >
           <b-input v-model.trim="formData.email" type="email" placeholder="john@address.com"></b-input>
         </b-field>
+
         <b-field
           :message="formErrorData.address"
           :type="{ 'is-danger': formErrorData.address }"
@@ -39,6 +45,7 @@
         </b-field>
 
         <b-button @click.stop.prevent="onFormSubmit" type="is-primary">Add</b-button>
+
         <b-button @click="onFormCancel">Cancel</b-button>
       </form>
     </div>
