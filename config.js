@@ -1,9 +1,5 @@
-import {
-  resolve
-} from "path";
-import {
-  existsSync
-} from "fs";
+import { resolve } from "path";
+import { existsSync } from "fs";
 
 const envFile = process.env.NODE_ENV == "development" ? ".env" : ".env.prod";
 const envPath = resolve(process.cwd(), envFile);
