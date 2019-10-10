@@ -7,6 +7,7 @@
             <b-input @input="fetchProducts" icon="magnify" placeholder="Search..." type="search"></b-input>
           </b-field>
         </div>
+
         <div class="level-right">
           <b-button
             class="level-item"
@@ -17,6 +18,7 @@
           >Add Product</b-button>
         </div>
       </div>
+
       <div v-show="checkedRowsData.length" class="level">
         <div class="level-left">
           <b-field class="level-item">
@@ -30,6 +32,7 @@
             >Clear Checked</b-button>
           </b-field>
         </div>
+
         <div class="level-right">
           <b-button
             :disabled="!checkedRowsData.length"
@@ -37,6 +40,7 @@
             icon-left="check-circle"
             size="is-small"
           >Set Available</b-button>
+
           <b-button
             :disabled="!checkedRowsData.length"
             class="level-item"
@@ -45,6 +49,7 @@
           >Set Unavailable</b-button>
         </div>
       </div>
+
       <b-table
         :checked-rows.sync="checkedRowsData"
         :data="pageData"
@@ -67,38 +72,46 @@
       >
         <template slot-scope="props">
           <b-table-column field="id" label="ID" numeric sortable>{{ props.row.id }}</b-table-column>
+
           <b-table-column field="name" label="Name" sortable>{{ props.row.name }}</b-table-column>
+
           <b-table-column
             field="category"
             label="Category"
             sortable
           >{{ props.row.category ? props.row.category.name : ''}}</b-table-column>
+
           <b-table-column
             field="base_price"
             label="Base price"
             numeric
             sortable
           >${{ props.row.base_price.toFixed(2) }}</b-table-column>
+
           <b-table-column
             field="discount_amount"
             label="Discount"
             numeric
             sortable
           >{{ props.row.discount_amount }}%</b-table-column>
+
           <b-table-column
             field="price"
             label="Price"
             numeric
           >${{ calcPrice(props.row.base_price, props.row.discount_amount) }}</b-table-column>
+
           <b-table-column field="datetime_created" label="Date added" centered sortable>
             <span class="tag">{{ new Date(props.row.datetime_created).toLocaleDateString() }}</span>
           </b-table-column>
+
           <b-table-column
             field="stock_quantity"
             label="Stock"
             numeric
             sortable
           >{{ props.row.stock_quantity }}</b-table-column>
+
           <b-table-column field="is_available" label="Available" boolean centered sortable>
             <span>
               <b-icon :icon="props.row.is_available === true ? 'check-circle' : 'circle'"></b-icon>

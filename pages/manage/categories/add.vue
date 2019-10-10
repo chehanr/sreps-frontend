@@ -2,6 +2,7 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Add Category</h1>
+
       <form>
         <b-field
           :message="formErrorData.name"
@@ -10,20 +11,17 @@
         >
           <b-input v-model.trim="formData.name" maxlength="128"></b-input>
         </b-field>
-        
+
         <b-field
           :message="formErrorData.description"
           :type="{ 'is-danger': formErrorData.description }"
           label="Description"
         >
-          <b-input
-            v-model.trim="formData.description"
-            placeholder="eg Tablet"
-            type="textarea"
-          ></b-input>
+          <b-input v-model.trim="formData.description" placeholder="eg Tablet" type="textarea"></b-input>
         </b-field>
-       
+
         <b-button @click.stop.prevent="onFormSubmit" type="is-primary">Add</b-button>
+
         <b-button @click="onFormCancel">Cancel</b-button>
       </form>
     </div>
@@ -38,11 +36,11 @@ export default {
     return {
       formData: {
         name: null,
-        description: null,
+        description: null
       },
       formErrorData: {
         name: null,
-        description: null,
+        description: null
       }
     };
   },
@@ -50,7 +48,7 @@ export default {
     async onFormSubmit() {
       var payload = {
         name: this.formData.name,
-        description: this.formData.description,
+        description: this.formData.description
       };
 
       // Set form errors to null.
@@ -93,8 +91,7 @@ export default {
     onFormCancel() {
       // Go back.
       this.$router.back();
-    },
-   
+    }
   }
 };
 </script>

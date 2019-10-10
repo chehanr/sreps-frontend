@@ -7,6 +7,7 @@
             <b-input @input="fetchSales" icon="magnify" placeholder="Search..." type="search"></b-input>
           </b-field>
         </div>
+
         <div class="level-right">
           <b-button
             class="level-item"
@@ -18,6 +19,7 @@
           >Add Sales</b-button>
         </div>
       </div>
+
       <div v-show="checkedRowsData.length" class="level">
         <div class="level-left">
           <b-field class="level-item">
@@ -31,6 +33,7 @@
             >Clear Checked</b-button>
           </b-field>
         </div>
+
         <div class="level-right">
           <b-button
             :disabled="!checkedRowsData.length"
@@ -38,6 +41,7 @@
             icon-left="check-circle"
             size="is-small"
           >Set Available</b-button>
+
           <b-button
             :disabled="!checkedRowsData.length"
             class="level-item"
@@ -46,6 +50,7 @@
           >Set Unavailable</b-button>
         </div>
       </div>
+
       <b-table
         :checked-rows.sync="checkedRowsData"
         :data="pageData"
@@ -68,22 +73,35 @@
       >
         <template slot-scope="props">
           <b-table-column field="id" label="ID" numeric sortable>{{ props.row.id }}</b-table-column>
+
           <b-table-column
             field="invoice__id"
             label="Invoice ID"
             numeric
             sortable
           >{{ props.row.invoice ? props.row.invoice.id : '' }}</b-table-column>
+
           <b-table-column
             field="product__id"
             label="Product"
             sortable
           >#{{ props.row.product.id }} {{ props.row.product.name }}</b-table-column>
-          <b-table-column field="quantity" label="Quantity" numeric sortable>{{ props.row.quantity }}</b-table-column>
+
+          <b-table-column
+            field="quantity"
+            label="Quantity"
+            numeric
+            sortable
+          >{{ props.row.quantity }}</b-table-column>
+
           <b-table-column field="datetime_created" label="Date added" centered sortable>
             <span class="tag">{{ new Date(props.row.datetime_created).toLocaleDateString() }}</span>
           </b-table-column>
         </template>
+      </b-table>
+    </div>
+  </section>
+</template>
       </b-table>
     </div>
   </section>
