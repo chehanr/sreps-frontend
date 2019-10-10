@@ -7,6 +7,7 @@
             <b-input @input="fetchCustomers" icon="magnify" placeholder="Search..." type="search"></b-input>
           </b-field>
         </div>
+
         <div class="level-right">
           <b-button
             class="level-item"
@@ -17,6 +18,7 @@
           >Add Customer</b-button>
         </div>
       </div>
+
       <div v-show="checkedRowsData.length" class="level">
         <div class="level-left">
           <b-field class="level-item">
@@ -30,6 +32,7 @@
             >Clear Checked</b-button>
           </b-field>
         </div>
+
         <div class="level-right">
           <b-button
             :disabled="!checkedRowsData.length"
@@ -37,6 +40,7 @@
             icon-left="check-circle"
             size="is-small"
           >Set Available</b-button>
+
           <b-button
             :disabled="!checkedRowsData.length"
             class="level-item"
@@ -45,6 +49,7 @@
           >Set Unavailable</b-button>
         </div>
       </div>
+
       <b-table
         :checked-rows.sync="checkedRowsData"
         :data="pageData"
@@ -67,12 +72,17 @@
       >
         <template slot-scope="props">
           <b-table-column field="id" label="ID" numeric sortable>{{ props.row.id }}</b-table-column>
+
           <b-table-column field="name" label="First name" sortable>{{ props.row.name }}</b-table-column>
+
           <b-table-column field="phone" label="Phone" numeric>{{ props.row.phone }}</b-table-column>
+
           <b-table-column field="email" label="Email">{{ props.row.email }}</b-table-column>
+
           <b-table-column field="datetime_created" label="Date added" centered sortable>
             <span class="tag">{{ new Date(props.row.datetime_created).toLocaleDateString() }}</span>
           </b-table-column>
+
           <b-table-column field="address" label="Address">{{ props.row.address }}</b-table-column>
         </template>
       </b-table>
