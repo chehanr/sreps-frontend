@@ -4,17 +4,18 @@
       <div class="level">
         <div class="level-left">
           <b-field class="level-item">
-            <b-input @input="fetchCategories" icon="magnify" placeholder="Search..." type="search"></b-input>
+            <b-input @input="fetchSales" icon="magnify" placeholder="Search..." type="search"></b-input>
           </b-field>
         </div>
         <div class="level-right">
           <b-button
             class="level-item"
             tag="nuxt-link"
-            to="/manage/categories/add"
+            to="/manage/invoice/add"
             type="is-primary"
             icon-left="plus"
-          >Add Category</b-button>
+            disabled
+          >Add Invoice</b-button>
         </div>
       </div>
       <div v-show="checkedRowsData.length" class="level">
@@ -67,7 +68,49 @@
       >
         <template slot-scope="props">
           <b-table-column field="id" label="ID" numeric sortable>{{ props.row.id }}</b-table-column>
-          <b-table-column field="name" label="Name" sortable>{{ props.row.name }}</b-table-column>
+          <b-table-column
+            field="salesperson"
+            label="Salesperson"
+            sortable
+          >{{ props.row.salesperson.username }}</b-table-column>
+          <b-table-column
+            field="customer"
+            label="Customer"
+            sortable
+          >#{{ props.row.customer.id }} {{ props.row.customer.name }}</b-table-column>
+          <b-table-column
+            field="products_price"
+            label="Price"
+            numeric
+          >${{ props.row.products_price.toFixed(2) }}</b-table-column>
+          <b-table-column
+            field="other_cost"
+            label="Other cost"
+            numeric
+            sortable
+          >${{ props.row.other_cost.toFixed(2) }}</b-table-column>
+          <b-table-column
+            field="tax_amount"
+            label="Tax Amount"
+            numeric
+            sortable
+          >{{ props.row.tax_amount }}%</b-table-column>
+          <b-table-column
+            field="total_price"
+            label="Total"
+            numeric
+          >${{ props.row.total_price.toFixed(2) }}</b-table-column>
+          <b-table-column field="datetime_pay_due" label="Payment due" centered sortable>
+            <span class="tag">{{ new Date(props.row.datetime_pay_due).toLocaleDateString() }}</span>
+          </b-table-column>
+          <b-table-column field="is_paid" label="Paid" boolean centered sortable>
+            <div class="tags has-addons">
+              <b-icon :icon="props.row.is_paid === true ? 'check-circle' : 'circle'"></b-icon>
+            </div>
+          </b-table-column>
+          <b-table-column field="datetime_paid" label="Paid on" centered sortable>
+            <span class="tag">{{ new Date(props.row.datetime_paid).toLocaleDateString() }}</span>
+          </b-table-column>
           <b-table-column field="datetime_created" label="Date added" centered sortable>
             <span class="tag">{{ new Date(props.row.datetime_created).toLocaleDateString() }}</span>
           </b-table-column>
@@ -95,16 +138,16 @@ export default {
     };
   },
   created() {
-    this.fetchCategories();
+    this.fetchSales();
   },
   methods: {
-    async fetchCategories(input = null) {
+    async fetchSales(input = null) {
       this.isLoading = true;
 
       this.checkedRowsData = [];
 
       await this.$axios
-        .$get("/v1/product-category/", {
+        .$get("/v1/invoice/", {
           params: {
             search: input,
             page: this.page,
@@ -124,21 +167,20 @@ export default {
 
       this.isLoading = false;
     },
-
     onPageChange(page) {
       this.page = page;
 
-      this.fetchCategories();
+      this.fetchSales();
     },
     onSelect(item) {
       // TODO: Implement better method.
-      this.$router.push({ path: `categories/${item.id}/update/` });
+      // this.$router.push({ path: `invoices/${item.id}/update/` });
     },
     onSort(field, order) {
       this.sortField = field;
       this.sortOrder = order;
 
-      this.fetchCategories();
+      this.fetchSales();
     }
   }
 };

@@ -4,17 +4,18 @@
       <div class="level">
         <div class="level-left">
           <b-field class="level-item">
-            <b-input @input="fetchCategories" icon="magnify" placeholder="Search..." type="search"></b-input>
+            <b-input @input="fetchSales" icon="magnify" placeholder="Search..." type="search"></b-input>
           </b-field>
         </div>
         <div class="level-right">
           <b-button
             class="level-item"
             tag="nuxt-link"
-            to="/manage/categories/add"
+            to="/manage/sales/add"
             type="is-primary"
             icon-left="plus"
-          >Add Category</b-button>
+            disabled
+          >Add Sales</b-button>
         </div>
       </div>
       <div v-show="checkedRowsData.length" class="level">
@@ -67,7 +68,18 @@
       >
         <template slot-scope="props">
           <b-table-column field="id" label="ID" numeric sortable>{{ props.row.id }}</b-table-column>
-          <b-table-column field="name" label="Name" sortable>{{ props.row.name }}</b-table-column>
+          <b-table-column
+            field="invoice__id"
+            label="Invoice ID"
+            numeric
+            sortable
+          >{{ props.row.invoice ? props.row.invoice.id : '' }}</b-table-column>
+          <b-table-column
+            field="product__id"
+            label="Product"
+            sortable
+          >#{{ props.row.product.id }} {{ props.row.product.name }}</b-table-column>
+          <b-table-column field="quantity" label="Quantity" numeric sortable>{{ props.row.quantity }}</b-table-column>
           <b-table-column field="datetime_created" label="Date added" centered sortable>
             <span class="tag">{{ new Date(props.row.datetime_created).toLocaleDateString() }}</span>
           </b-table-column>
@@ -95,16 +107,16 @@ export default {
     };
   },
   created() {
-    this.fetchCategories();
+    this.fetchSales();
   },
   methods: {
-    async fetchCategories(input = null) {
+    async fetchSales(input = null) {
       this.isLoading = true;
 
       this.checkedRowsData = [];
 
       await this.$axios
-        .$get("/v1/product-category/", {
+        .$get("/v1/sale/", {
           params: {
             search: input,
             page: this.page,
@@ -124,21 +136,20 @@ export default {
 
       this.isLoading = false;
     },
-
     onPageChange(page) {
       this.page = page;
 
-      this.fetchCategories();
+      this.fetchSales();
     },
     onSelect(item) {
       // TODO: Implement better method.
-      this.$router.push({ path: `categories/${item.id}/update/` });
+      // this.$router.push({ path: `sales/${item.id}/update/` });
     },
     onSort(field, order) {
       this.sortField = field;
       this.sortOrder = order;
 
-      this.fetchCategories();
+      this.fetchSales();
     }
   }
 };
