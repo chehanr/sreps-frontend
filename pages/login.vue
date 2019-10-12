@@ -5,9 +5,11 @@
         <b-field label="Username">
           <b-input type="username" name="username" v-model="username"></b-input>
         </b-field>
+
         <b-field label="Password">
           <b-input type="password" name="password" v-model="password"></b-input>
         </b-field>
+
         <button type="submit" class="button is-fullwidth" @click="login()">Log In</button>
       </div>
     </div>
