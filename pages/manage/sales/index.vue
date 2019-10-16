@@ -170,7 +170,7 @@ export default {
           timeout: 30000
         })
         .then(res => {
-          const url = window.URL.createObjectURL(new Blob([res]));
+          const url = window.URL.createObjectURL(new Blob([res], {type: 'text/csv'}));
           const link = document.createElement("a");
           const fileName = `sales-${new Date().toLocaleString()}.csv`;
 
