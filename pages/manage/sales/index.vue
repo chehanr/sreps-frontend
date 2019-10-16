@@ -10,6 +10,12 @@
 
         <div class="level-right">
           <b-button
+            @click="fetchExport"
+            class="level-item"
+            icon-left="export"
+            v-bind:loading="isLoadingExport"
+          >Export</b-button>
+          <b-button
             class="level-item"
             tag="nuxt-link"
             to="/manage/sales/add"
@@ -79,7 +85,7 @@
             label="Invoice ID"
             numeric
             sortable
-          >{{ props.row.invoice ? props.row.invoice.id : '' }}</b-table-column>
+          >{{ props.row.invoice }}</b-table-column>
 
           <b-table-column
             field="product__id"
@@ -112,6 +118,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      isLoadingExport: false,
 
       checkedRowsData: [],
       pageData: [],
@@ -153,6 +160,30 @@ export default {
         });
 
       this.isLoading = false;
+    },
+    async fetchExport() {
+      this.isLoadingExport = true;
+
+      await this.$axios
+        .$get("/v1/sale/export/", {
+          responseType: "blob",
+          timeout: 30000
+        })
+        .then(res => {
+          const url = window.URL.createObjectURL(new Blob([res], {type: 'text/csv'}));
+          const link = document.createElement("a");
+          const fileName = `sales-${new Date().toLocaleString()}.csv`;
+
+          link.href = url;
+          link.setAttribute("download", fileName);
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch(err => {
+          console.log("Error fetching export data", err);
+        });
+
+      this.isLoadingExport = false;
     },
     onPageChange(page) {
       this.page = page;

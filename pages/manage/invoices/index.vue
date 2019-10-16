@@ -4,7 +4,13 @@
       <div class="level">
         <div class="level-left">
           <b-field class="level-item">
-            <b-input @input="fetchSales" icon="magnify" placeholder="Search..." type="search"></b-input>
+            <b-input
+              v-model="invoiceSearchQuery"
+              icon="magnify"
+              placeholder="Search..."
+              type="search"
+              disabled
+            ></b-input>
           </b-field>
         </div>
 
@@ -17,6 +23,35 @@
             icon-left="plus"
             disabled
           >Add Invoice</b-button>
+        </div>
+      </div>
+
+      <div class="level">
+        <div class="level-left">
+          <b-field class="level-item">
+            <b-dropdown aria-role="list">
+              <button class="button" slot="trigger">
+                <span>Filter by salesperson</span>
+                <b-icon icon="menu-down"></b-icon>
+              </button>
+
+              <b-dropdown-item
+                v-for="salesperson in salespeopleData"
+                @click="selectedSalesperson=salesperson"
+                :key="salesperson.id"
+                aria-role="listitem"
+              >{{ salesperson.username }}</b-dropdown-item>
+            </b-dropdown>
+          </b-field>
+        </div>
+
+        <div class="level-right">
+          <b-tag
+            v-if="selectedSalesperson"
+            closable
+            aria-close-label="Close tag"
+            @close="selectedSalesperson = ''"
+          >{{ selectedSalesperson.username }}</b-tag>
         </div>
       </div>
 
@@ -140,9 +175,13 @@ export default {
   data() {
     return {
       isLoading: false,
+      isFetchingSalespeople: false,
 
       checkedRowsData: [],
       pageData: [],
+      salespeopleData: [],
+      invoiceSearchQuery: "",
+      selectedSalesperson: "",
 
       defaultSortDirection: "asc",
       sortField: "id",
@@ -153,18 +192,39 @@ export default {
     };
   },
   created() {
-    this.fetchSales();
+    this.fetchInvoices();
+    this.fetchSalespeople();
+  },
+  watch: {
+    invoiceSearchQuery: {
+      handler: function(val, oldVal) {
+        if (this.selectedSalesperson.length) {
+          this.fetchInvoices(val, this.selectedSalesperson);
+        }
+
+        this.fetchInvoices(val, this.selectedSalesperson);
+      },
+      deep: true
+    },
+    selectedSalesperson: {
+      handler: function(val, oldVal) {
+        this.fetchInvoices(this.invoiceSearchQuery, val);
+      }
+    }
   },
   methods: {
-    async fetchSales(input = null) {
+    async fetchInvoices(searchQuery = null, salesperson = null) {
       this.isLoading = true;
 
+      this.pageData = [];
+      this.totalRows = 0;
       this.checkedRowsData = [];
 
       await this.$axios
         .$get("/v1/invoice/", {
           params: {
-            search: input,
+            search: searchQuery,
+            salesperson__id: salesperson ? salesperson.id : "",
             page: this.page,
             ordering: `${this.sortOrder == "desc" ? "-" : ""}${this.sortField}`
           }
@@ -175,17 +235,28 @@ export default {
         })
         .catch(err => {
           console.log("Error fetching results", err);
-
-          this.pageData = [];
-          this.totalRows = 0;
         });
 
       this.isLoading = false;
     },
+    async fetchSalespeople() {
+      this.isFetchingSalespeople = true;
+
+      await this.$axios
+        .$get("/v1/user/")
+        .then(res => {
+          this.salespeopleData = res.results;
+          this.isFetchingSalespeople = false;
+        })
+        .catch(err => {
+          this.salespeopleData = [];
+          this.isFetchingSalespeople = false;
+        });
+    },
     onPageChange(page) {
       this.page = page;
 
-      this.fetchSales();
+      this.fetchInvoices(this.invoiceSearchQuery, this.selectedSalesperson);
     },
     onSelect(item) {
       // TODO: Implement better method.
@@ -195,7 +266,7 @@ export default {
       this.sortField = field;
       this.sortOrder = order;
 
-      this.fetchSales();
+      this.fetchInvoices(this.invoiceSearchQuery, this.selectedSalesperson);
     }
   }
 };
