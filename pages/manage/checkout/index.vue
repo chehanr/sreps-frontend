@@ -31,7 +31,7 @@
             @select="option => addProduct(option)"
             @typing="fetchProducts"
             field="name"
-            placeholder="e.g. Viagra"
+            placeholder="e.g. Ibuprofen"
           >
             <template slot="header">
               <nuxt-link to="/manage/products/add" target="_blank">Add new...</nuxt-link>
