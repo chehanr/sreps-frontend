@@ -112,6 +112,19 @@
             sortable
           >{{ props.row.stock_quantity }}</b-table-column>
 
+          <b-table-column field="stock_status" label="Stock status">
+            <div v-if="props.row.stock_quantity <= 5">
+               <b-icon icon='alert-circle'></b-icon>
+                    <b-toast id="example-toast" title="BootstrapVue" static no-auto-hide>
+                        Alert! Low stock
+                    </b-toast>
+            </div>
+            <div v-else>
+                <b-icon icon='hand-ok'></b-icon>
+                  OK
+            </div>
+          </b-table-column>
+
           <b-table-column field="is_available" label="Available" boolean centered sortable>
             <span>
               <b-icon :icon="props.row.is_available === true ? 'check-circle' : 'circle'"></b-icon>
@@ -175,6 +188,14 @@ export default {
 
       return (basePrice - (basePrice * discountAmount) / 100).toFixed(2);
     },
+     makeToast(variant = null) {
+        this.$bvToast.toast('Low stock!', {
+          title: `Variant ${variant || 'default'}`,
+          variant: variant,
+          solid: true
+        })
+      },
+
     onPageChange(page) {
       this.page = page;
 
