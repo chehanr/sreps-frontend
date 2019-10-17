@@ -4,20 +4,18 @@
             <b-menu>
                 <b-menu-list label="Menu">
                     <b-menu-item icon="information-outline" label="Dashboard" tag="nuxt-link" to="/manage/" exact></b-menu-item>
+                    <b-menu-item icon="cart" label="Checkout" tag="nuxt-link" to="/manage/checkout"></b-menu-item>
                     <b-menu-item icon="settings" expanded>
-                        <template slot="label" slot-scope="props">
-    
-                  Administrator
-    
-                  <b-icon :icon="props.expanded ? 'menu-down' : 'menu-up'" class="is-pulled-right"></b-icon>
-</template>
-            <b-menu-item icon="pill" label="Products" tag="nuxt-link" to="/manage/products"></b-menu-item>
-            <b-menu-item icon="shape" label="Categories" tag="nuxt-link" to="/manage/categories"></b-menu-item>
-            <b-menu-item icon="account-multiple" label="Customers" tag="nuxt-link" to="/manage/customers"></b-menu-item>
-            <b-menu-item icon="cash" label="Sales" tag="nuxt-link" to="/manage/sales"></b-menu-item>
-            <b-menu-item icon="cash-multiple" label="Invoices" tag="nuxt-link" to="/manage/invoices"></b-menu-item>
-            <b-menu-item icon="cart" label="Checkout" tag="nuxt-link" to="/manage/checkout"></b-menu-item>
-          </b-menu-item>
+                    <template slot="label" slot-scope="props">
+                     Administrator
+                    <b-icon :icon="props.expanded ? 'menu-down' : 'menu-up'" class="is-pulled-right"></b-icon>
+                    </template>
+                    <b-menu-item icon="pill" label="Products" tag="nuxt-link" to="/manage/products"></b-menu-item>
+                    <b-menu-item icon="shape" label="Categories" tag="nuxt-link" to="/manage/categories"></b-menu-item>
+                    <b-menu-item icon="account-multiple" label="Customers" tag="nuxt-link" to="/manage/customers"></b-menu-item>
+                    <b-menu-item icon="cash" label="Sales" tag="nuxt-link" to="/manage/sales"></b-menu-item>
+                    <b-menu-item icon="cash-multiple" label="Invoices" tag="nuxt-link" to="/manage/invoices"></b-menu-item>
+                    </b-menu-item>
           <b-menu-item icon="account">
 <template slot="label" slot-scope="props">
      My Account
