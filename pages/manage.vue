@@ -16,6 +16,7 @@
             <b-menu-item icon="account-multiple" label="Customers" tag="nuxt-link" to="/manage/customers"></b-menu-item>
             <b-menu-item icon="cash" label="Sales" tag="nuxt-link" to="/manage/sales"></b-menu-item>
             <b-menu-item icon="cash-multiple" label="Invoices" tag="nuxt-link" to="/manage/invoices"></b-menu-item>
+            <b-menu-item icon="cart" label="Checkout" tag="nuxt-link" to="/manage/checkout"></b-menu-item>
           </b-menu-item>
           <b-menu-item icon="account">
 <template slot="label" slot-scope="props">
