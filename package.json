@@ -16,8 +16,10 @@
     "@nuxtjs/auth": "^4.8.1",
     "@nuxtjs/axios": "^5.5.4",
     "@nuxtjs/dotenv": "^1.4.0",
+    "chart.js": "^2.8.0",
     "nuxt": "^2.0.0",
-    "nuxt-buefy": "^0.3.2"
+    "nuxt-buefy": "^0.3.2",
+    "vue-chartjs": "^3.4.2"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.27",
