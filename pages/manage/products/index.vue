@@ -105,6 +105,12 @@
             <span class="tag">{{ new Date(props.row.datetime_created).toLocaleDateString() }}</span>
           </b-table-column>
 
+          <b-table-column 
+            field="monthly_predicted" 
+            label="Monthly predicted" 
+            numeric
+          >{{ Math.floor(props.row.stock_quantity/3) }}</b-table-column>
+
           <b-table-column
             field="stock_quantity"
             label="Stock"
