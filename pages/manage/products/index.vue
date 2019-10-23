@@ -112,8 +112,8 @@
             sortable
           >{{ props.row.stock_quantity }}</b-table-column>
 
-          <b-table-column field="stock_status" label="Stock status">
-            <div v-if="props.row.stock_quantity <= 5">
+          <b-table-column field="stock_status" label="Stock status"> {{checkStock(props.row.stock_quantity)}}
+            <!-- <div v-if="props.row.stock_quantity <= 5">
                <b-icon icon='alert-circle'></b-icon>
                     <b-toast id="example-toast" title="BootstrapVue" static no-auto-hide>
                         Alert! Low stock
@@ -122,7 +122,7 @@
             <div v-else>
                 <b-icon icon='hand-ok'></b-icon>
                   OK
-            </div>
+            </div> -->
           </b-table-column>
 
           <b-table-column field="is_available" label="Available" boolean centered sortable>
@@ -187,6 +187,16 @@ export default {
       // TODO: Make helper function.
 
       return (basePrice - (basePrice * discountAmount) / 100).toFixed(2);
+    },
+    checkStock(stockQuantity) {
+      if (stockQuantity <= 5) {
+          <b-icon icon='alert-circle'></b-icon>
+          'Alert! Low stock'
+      }
+      else {
+           <b-icon icon='hand-ok'></b-icon>
+           'OK'
+      }
     },
      makeToast(variant = null) {
         this.$bvToast.toast('Low stock!', {
