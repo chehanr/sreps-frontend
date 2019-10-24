@@ -118,6 +118,23 @@
             sortable
           >{{ props.row.stock_quantity }}</b-table-column>
 
+          <b-table-column field="stock_status" label="Stock status" boolean centered>
+            <b-tooltip
+              v-if="props.row.stock_quantity <= props.row.low_stock_threshold"
+              :label="'Below threshold (' + props.row.low_stock_threshold + ')'"
+              type="is-warning"
+            >
+              <b-icon icon="alert-circle" type="is-warning"></b-icon>
+            </b-tooltip>
+            <b-tooltip
+              v-else
+              :label="'Above threshold (' + props.row.low_stock_threshold + ')'"
+              type="is-success"
+            >
+              <b-icon icon="check-circle" type="is-success"></b-icon>
+            </b-tooltip>
+          </b-table-column>
+
           <b-table-column field="is_available" label="Available" boolean centered sortable>
             <span>
               <b-icon :icon="props.row.is_available === true ? 'check-circle' : 'circle'"></b-icon>
