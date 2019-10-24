@@ -112,17 +112,21 @@
             sortable
           >{{ props.row.stock_quantity }}</b-table-column>
 
-          <b-table-column field="stock_status" label="Stock status"> {{checkStock(props.row.stock_quantity)}}
-            <!-- <div v-if="props.row.stock_quantity <= 5">
-               <b-icon icon='alert-circle'></b-icon>
-                    <b-toast id="example-toast" title="BootstrapVue" static no-auto-hide>
-                        Alert! Low stock
-                    </b-toast>
-            </div>
-            <div v-else>
-                <b-icon icon='hand-ok'></b-icon>
-                  OK
-            </div> -->
+          <b-table-column field="stock_status" label="Stock status" boolean centered>
+            <b-tooltip
+              v-if="props.row.stock_quantity <= props.row.low_stock_threshold"
+              :label="'Below threshold (' + props.row.low_stock_threshold + ')'"
+              type="is-warning"
+            >
+              <b-icon icon="alert-circle" type="is-warning"></b-icon>
+            </b-tooltip>
+            <b-tooltip
+              v-else
+              :label="'Above threshold (' + props.row.low_stock_threshold + ')'"
+              type="is-success"
+            >
+              <b-icon icon="check-circle" type="is-success"></b-icon>
+            </b-tooltip>
           </b-table-column>
 
           <b-table-column field="is_available" label="Available" boolean centered sortable>
@@ -188,24 +192,6 @@ export default {
 
       return (basePrice - (basePrice * discountAmount) / 100).toFixed(2);
     },
-    checkStock(stockQuantity) {
-      if (stockQuantity <= 5) {
-          <b-icon icon='alert-circle'></b-icon>
-          'Alert! Low stock'
-      }
-      else {
-           <b-icon icon='hand-ok'></b-icon>
-           'OK'
-      }
-    },
-     makeToast(variant = null) {
-        this.$bvToast.toast('Low stock!', {
-          title: `Variant ${variant || 'default'}`,
-          variant: variant,
-          solid: true
-        })
-      },
-
     onPageChange(page) {
       this.page = page;
 
