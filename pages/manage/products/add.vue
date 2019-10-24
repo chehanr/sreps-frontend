@@ -37,6 +37,13 @@
             <b-numberinput v-model.number="formData.stockQuantity" min="0" placeholder="0"></b-numberinput>
           </b-field>
           <b-field
+            :message="formErrorData.lowStockThreshold"
+            :type="{ 'is-danger': formErrorData.lowStockThreshold }"
+            label="Low stock threshold"
+          >
+            <b-numberinput v-model.number="formData.lowStockThreshold" min="0" placeholder="0"></b-numberinput>
+          </b-field>
+          <b-field
             :message="formErrorData.basePrice"
             :type="{ 'is-danger': formErrorData.basePrice }"
             label="Base price ($)"
@@ -106,6 +113,7 @@ export default {
                 category: {},
                 description: null,
                 stockQuantity: 0,
+                lowStockThreshold: 0,
                 basePrice: 0,
                 discountAmount: 0,
                 availability: "Available",
@@ -116,6 +124,7 @@ export default {
                 category: null,
                 description: null,
                 stockQuantity: null,
+                lowStockThreshold: null,
                 basePrice: null,
                 discountAmount: null,
                 availability: null,
@@ -153,6 +162,7 @@ export default {
                 category: this.formData.category.id || null,
                 description: this.formData.description,
                 stock_quantity: this.formData.stockQuantity,
+                low_stock_threshold: this.formData.lowStockThreshold,
                 base_price: this.formData.basePrice,
                 discount_amount: this.formData.discountAmount,
                 is_available: this.formData.availability == "Available" ? true : false,
@@ -188,6 +198,8 @@ export default {
                             err.response.data.description || null;
                         this.formErrorData.stockQuantity =
                             err.response.data.stock_quantity || null;
+                        this.formErrorData.lowStockThreshold =
+                            err.response.data.low_stock_threshold || null;
                         this.formErrorData.basePrice = err.response.data.base_price || null;
                         this.formErrorData.discountAmount =
                             err.response.data.discount_amount || null;
