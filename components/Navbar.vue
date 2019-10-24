@@ -3,7 +3,7 @@
         <template slot="brand">
           <a href="/" class="navbar-item">
             <img
-              src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+              src="~/assets/logo.png"
               alt="SRePs"
             />
           </a>
