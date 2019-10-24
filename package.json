@@ -16,15 +16,15 @@
     "@nuxtjs/auth": "^4.8.1",
     "@nuxtjs/axios": "^5.5.4",
     "@nuxtjs/dotenv": "^1.4.0",
-    "nuxt": "^2.9.2",
+    "chart.js": "^2.8.0",
+    "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.2",
-    "vue-sweetalert2": "^2.1.1",
-    "vue-toasted": "^1.1.27"
+    "vue-chartjs": "^3.4.2"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-jest": "^24.1.0",
-    "jest": "^24.9.0",
+    "jest": "^24.1.0",
     "vue-jest": "^4.0.0-0"
   }
 }
